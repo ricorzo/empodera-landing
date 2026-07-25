@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Empodera Ingenio — Transformación Empresarial</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #09090b;
+    --bg-elevated: #111114;
+    --surface: #18181b;
+    --border: #27272a;
+    --text: #fafafa;
+    --text-muted: #a1a1aa;
+    --accent: #3b82f6;
+    --accent-light: #60a5fa;
+    --gradient: linear-gradient(135deg, #3b82f6, #8b5cf6);
+    --radius: 12px;
+    --radius-lg: 20px;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.6;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ─── NAV ─── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 16px 40px;
+    background: rgba(9,9,11,0.8);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .logo {
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 700; font-size: 1.25rem;
+    background: var(--gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    letter-spacing: -0.5px;
+  }
+
+  .nav-links { display: flex; gap: 32px; align-items: center; }
+  .nav-links a {
+    color: var(--text-muted); text-decoration: none; font-size: 0.9rem;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--text); }
+  .nav-ctas { display: flex; gap: 12px; align-items: center; }
+
+  .btn-outline {
+    padding: 8px 20px; border-radius: 8px;
+    border: 1px solid var(--border); background: transparent;
+    color: var(--text); font-size: 0.9rem; cursor: pointer;
+    transition: all 0.2s; text-decoration: none;
+  }
+  .btn-outline:hover { border-color: var(--accent); color: var(--accent); }
+
+  .btn-primary {
+    padding: 8px 20px; border-radius: 8px;
+    background: var(--gradient); border: none;
+    color: white; font-size: 0.9rem; font-weight: 500; cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s; text-decoration: none;
+  }
+  .btn-primary:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 24px rgba(59,130,246,0.3);
+  }
+  .btn-primary-lg {
+    padding: 14px 32px; border-radius: 10px; font-size: 1rem;
+  }
+
+  .hamburger {
+    display: none; background: none; border: none; cursor: pointer;
+    flex-direction: column; gap: 5px;
+  }
+  .hamburger span { display: block; width: 22px; height: 2px; background: var(--text); border-radius: 2px; transition: 0.3s; }
+
+  /* ─── HERO ─── */
+  .hero {
+    min-height: 100vh; display: flex; align-items: center; justify-content: center;
+    text-align: center; padding: 120px 40px 80px; position: relative;
+  }
+
+  .hero::before {
+    content: ''; position: absolute; inset: 0;
+    background: radial-gradient(ellipse at 50% 0%, rgba(59,130,246,0.12) 0%, transparent 60%);
+    pointer-events: none;
+  }
+
+  .hero-content { max-width: 780px; position: relative; }
+
+  .badge {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 6px 16px; border-radius: 100px;
+    background: rgba(59,130,246,0.1); border: 1px solid rgba(59,130,246,0.2);
+    color: var(--accent-light); font-size: 0.8rem; font-weight: 500;
+    margin-bottom: 28px;
+    animation: fadeUp 0.8s ease both;
+  }
+  .badge-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--accent); animation: pulse-dot 2s infinite; }
+
+  .hero h1 {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: clamp(2.5rem, 6vw, 4.5rem);
+    font-weight: 700; line-height: 1.1;
+    letter-spacing: -1.5px;
+    margin-bottom: 24px;
+    animation: fadeUp 0.8s ease 0.1s both;
+  }
+  .hero h1 .gradient-text {
+    background: var(--gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  .subtitle {
+    font-size: 1.2rem; color: var(--text-muted);
+    max-width: 580px; margin: 0 auto 40px;
+    animation: fadeUp 0.8s ease 0.2s both;
+  }
+
+  .hero-actions {
+    display: flex; justify-content: center; gap: 16px; flex-wrap: wrap;
+    animation: fadeUp 0.8s ease 0.3s both;
+  }
+
+  /* ─── FEATURES ─── */
+  .section { padding: 100px 40px; }
+  .section-label {
+    font-size: 0.75rem; text-transform: uppercase; letter-spacing: 2px;
+    color: var(--accent-light); font-weight: 600; margin-bottom: 12px;
+  }
+  .section-title {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: clamp(1.8rem, 4vw, 2.8rem);
+    font-weight: 700; letter-spacing: -1px;
+    margin-bottom: 16px;
+  }
+  .section-desc {
+    color: var(--text-muted); max-width: 560px; font-size: 1.05rem;
+    margin-bottom: 60px;
+  }
+
+  .features-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px; max-width: 1100px; margin: 0 auto;
+  }
+
+  .feature-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 36px;
+    transition: transform 0.3s, border-color 0.3s;
+    position: relative; overflow: hidden;
+  }
+  .feature-card:hover {
+    transform: translateY(-4px);
+    border-color: rgba(59,130,246,0.3);
+  }
+  .feature-card::after {
+    content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px;
+    background: linear-gradient(90deg, transparent, var(--accent), transparent);
+    opacity: 0; transition: opacity 0.3s;
+  }
+  .feature-card:hover::after { opacity: 1; }
+
+  .feature-icon {
+    width: 48px; height: 48px; border-radius: 12px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.3rem; margin-bottom: 20px;
+    background: rgba(59,130,246,0.1);
+  }
+  .feature-card h3 {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 1.15rem; font-weight: 600; margin-bottom: 10px;
+  }
+  .feature-card p { color: var(--text-muted); font-size: 0.95rem; line-height: 1.6; }
+
+  /* ─── EJES DE ACCIÓN ─── */
+  .ejes-section { padding: 100px 40px; position: relative; }
+  .ejes-section::before {
+    content: ''; position: absolute; inset: 0;
+    background: radial-gradient(ellipse at 80% 50%, rgba(139,92,246,0.08) 0%, transparent 50%);
+    pointer-events: none;
+  }
+  .ejes-container {
+    max-width: 1100px; margin: 0 auto;
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px;
+    position: relative;
+  }
+  .eje-card {
+    background: var(--bg-elevated);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 40px 32px; text-align: center;
+    transition: all 0.3s;
+  }
+  .eje-card:hover { border-color: rgba(139,92,246,0.3); transform: translateY(-4px); }
+  .eje-number {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 3rem; font-weight: 700;
+    background: var(--gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    line-height: 1; margin-bottom: 16px;
+  }
+  .eje-card h3 {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 1.2rem; font-weight: 600; margin-bottom: 12px;
+  }
+  .eje-card p { color: var(--text-muted); font-size: 0.95rem; }
+
+  /* ─── CTA ─── */
+  .cta-section {
+    padding: 120px 40px; text-align: center; position: relative;
+  }
+  .cta-section::before {
+    content: ''; position: absolute; inset: 0;
+    background: radial-gradient(ellipse at 50% 50%, rgba(59,130,246,0.1) 0%, transparent 50%);
+    pointer-events: none;
+  }
+  .cta-box {
+    max-width: 680px; margin: 0 auto; position: relative;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 60px 48px;
+  }
+  .cta-box .section-title { margin-bottom: 16px; }
+  .cta-box p { color: var(--text-muted); margin-bottom: 32px; font-size: 1.05rem; }
+
+  /* ─── FOOTER ─── */
+  footer {
+    border-top: 1px solid var(--border);
+    padding: 48px 40px;
+    display: flex; justify-content: space-between; align-items: center;
+    flex-wrap: wrap; gap: 20px;
+  }
+  .footer-left { display: flex; flex-direction: column; gap: 8px; }
+  .footer-brand {
+    font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 1rem;
+  }
+  .footer-copy { color: var(--text-muted); font-size: 0.85rem; }
+
+  .footer-links { display: flex; gap: 24px; }
+  .footer-links a { color: var(--text-muted); text-decoration: none; font-size: 0.9rem; transition: color 0.2s; }
+  .footer-links a:hover { color: var(--text); }
+
+  .footer-contact { display: flex; gap: 16px; align-items: center; }
+  .footer-contact a {
+    color: var(--text-muted); text-decoration: none; font-size: 0.9rem;
+    display: flex; align-items: center; gap: 6px;
+    transition: color 0.2s;
+  }
+  .footer-contact a:hover { color: var(--accent-light); }
+
+  /* ─── ANIMATIONS ─── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes pulse-dot {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.4; }
+  }
+
+  .reveal {
+    opacity: 0; transform: translateY(30px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+  .reveal.visible {
+    opacity: 1; transform: translateY(0);
+  }
+
+  /* ─── MOBILE MENU ─── */
+  .mobile-menu {
+    display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(9,9,11,0.97); backdrop-filter: blur(20px);
+    z-index: 99; flex-direction: column; align-items: center; justify-content: center;
+    gap: 32px;
+  }
+  .mobile-menu.open { display: flex; }
+  .mobile-menu a {
+    color: var(--text); text-decoration: none; font-size: 1.2rem;
+    font-family: 'Space Grotesk', sans-serif;
+  }
+  .close-menu {
+    position: absolute; top: 20px; right: 40px; background: none; border: none;
+    color: var(--text); font-size: 2rem; cursor: pointer;
+  }
+
+  /* ─── RESPONSIVE ─── */
+  @media (max-width: 768px) {
+    nav { padding: 14px 24px; }
+    .nav-links, .nav-ctas { display: none; }
+    .hamburger { display: flex; }
+    .section { padding: 70px 24px; }
+    .ejes-container { grid-template-columns: 1fr; }
+    .hero { padding: 100px 24px 60px; }
+    .cta-box { padding: 40px 28px; }
+    footer { flex-direction: column; text-align: center; }
+    .features-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ─── NAV ─── -->
+<nav>
+  <div class="logo">EMPODERA</div>
+  <div class="nav-links">
+    <a href="#servicios">Servicios</a>
+    <a href="#ejes">Ejes de Acción</a>
+    <a href="#contacto">Contacto</a>
+  </div>
+  <div class="nav-ctas">
+    <a href="tel:+50239058448" class="btn-outline">📞 +502 39058448</a>
+    <a href="#contacto" class="btn-primary">Contáctenos</a>
+  </div>
+  <button class="hamburger" id="menuBtn" aria-label="Menú">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- MOBILE MENU -->
+<div class="mobile-menu" id="mobileMenu">
+  <button class="close-menu" id="closeMenu">×</button>
+  <a href="#servicios" onclick="closeMobile()">Servicios</a>
+  <a href="#ejes" onclick="closeMobile()">Ejes de Acción</a>
+  <a href="#contacto" onclick="closeMobile()">Contacto</a>
+  <a href="tel:+50239058448" onclick="closeMobile()">📞 +502 39058448</a>
+</div>
+
+<!-- ─── HERO ─── -->
+<section class="hero">
+  <div class="hero-content">
+    <div class="badge"><span class="badge-dot"></span> Desde 1982 en Guatemala</div>
+    <h1>Transformamos tu visión en <span class="gradient-text">realidad empresarial</span></h1>
+    <p class="subtitle">Estrategias efectivas y sostenibles para que tu organización alcance su máximo potencial en un mercado en constante cambio.</p>
+    <div class="hero-actions">
+      <a href="#contacto" class="btn-primary btn-primary-lg">Únete a nuestra misión</a>
+      <a href="#servicios" class="btn-outline btn-primary-lg">Conoce más →</a>
+    </div>
+  </div>
+</section>
+
+<!-- ─── SERVICIOS ─── -->
+<section class="section" id="servicios">
+  <div class="section-label reveal">Nuestros servicios</div>
+  <h2 class="section-title reveal">Qué hacemos por tu empresa</h2>
+  <p class="section-desc reveal">Soluciones integrales de consultoría, tecnología y desarrollo organizacional.</p>
+
+  <div class="features-grid">
+    <div class="feature-card reveal">
+      <div class="feature-icon">⚡</div>
+      <h3>Optimización de procesos</h3>
+      <p>Analizamos, rediseñamos y optimizamos tus procesos clave para maximizar la eficiencia y reducir costos operativos.</p>
+    </div>
+    <div class="feature-card reveal">
+      <div class="feature-icon">🏗️</div>
+      <h3>Desarrollo organizacional</h3>
+      <p>Transformamos la estructura de tu empresa para que sea ágil, adaptable y preparada para los desafíos del futuro.</p>
+    </div>
+    <div class="feature-card reveal">
+      <div class="feature-icon">💼</div>
+      <h3>Consultoría empresarial</h3>
+      <p>Acompañamiento estratégico integral para la toma de decisiones, el crecimiento y la transformación de tu negocio.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ─── EJES DE ACCIÓN ─── -->
+<section class="ejes-section" id="ejes">
+  <div style="text-align:center; margin-bottom:60px;">
+    <div class="section-label reveal">Nuestros ejes</div>
+    <h2 class="section-title reveal">Tres pilares para tu crecimiento</h2>
+    <p class="section-desc reveal" style="margin:16px auto 0;">Integramos gestión, tecnología y talento humano para crear impacto real.</p>
+  </div>
+
+  <div class="ejes-container">
+    <div class="eje-card reveal">
+      <div class="eje-number">01</div>
+      <h3>Consultoría de Gestión</h3>
+      <p>Estrategia, planificación y acompañamiento para que tu empresa tome las decisiones correctas en el momento correcto.</p>
+    </div>
+    <div class="eje-card reveal">
+      <div class="eje-number">02</div>
+      <h3>Infraestructura TI</h3>
+      <p>Soluciones tecnológicas que impulsan la productividad, la innovación y la transformación digital de tu organización.</p>
+    </div>
+    <div class="eje-card reveal">
+      <div class="eje-number">03</div>
+      <h3>Capital Humano</h3>
+      <p>Desarrollo de equipos de alto rendimiento, cultura organizacional y liderazgo para potenciar tu recurso más valioso.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ─── CTA ─── -->
+<section class="cta-section" id="contacto">
+  <div class="cta-box reveal">
+    <h2 class="section-title">¿Listo para transformar tu empresa?</h2>
+    <p>Colabora con nosotros para impulsar el crecimiento sostenible de tu negocio.</p>
+    <div style="display:flex; gap:16px; justify-content:center; flex-wrap:wrap;">
+      <a href="mailto:gerencia2@empoderaingenio.com" class="btn-primary btn-primary-lg">Contáctenos hoy</a>
+      <a href="tel:+50239058448" class="btn-outline btn-primary-lg">📞 Llamar ahora</a>
+    </div>
+  </div>
+</section>
+
+<!-- ─── FOOTER ─── -->
+<footer>
+  <div class="footer-left">
+    <div class="footer-brand">EMPODERA INGENIO</div>
+    <div class="footer-copy">© 2025 Todos los derechos reservados.</div>
+  </div>
+  <div class="footer-links">
+    <a href="#">Inicio</a>
+    <a href="#">Política de privacidad</a>
+  </div>
+  <div class="footer-contact">
+    <a href="mailto:gerencia2@empoderaingenio.com">✉ Email</a>
+    <a href="tel:+50239058448">📞 Teléfono</a>
+    <a href="#">LinkedIn</a>
+    <a href="#">Facebook</a>
+  </div>
+</footer>
+
+<script>
+  // Scroll reveal
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+      }
+    });
+  }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+  // Mobile menu
+  document.getElementById('menuBtn').addEventListener('click', () => {
+    document.getElementById('mobileMenu').classList.add('open');
+  });
+  document.getElementById('closeMenu').addEventListener('click', closeMobile);
+  function closeMobile() {
+    document.getElementById('mobileMenu').classList.remove('open');
+  }
+
+  // Nav shadow on scroll
+  window.addEventListener('scroll', () => {
+    const nav = document.querySelector('nav');
+    if (window.scrollY > 50) {
+      nav.style.background = 'rgba(9,9,11,0.95)';
+    } else {
+      nav.style.background = 'rgba(9,9,11,0.8)';
+    }
+  });
+</script>
+
+</body>
+</html>
